@@ -1,4 +1,5 @@
 <!-- index.html -->
+<link rel="stylesheet" href="style.css">
 <nav class="navbar">
   <div class="brand">VR Banking</div>
   <ul class="nav-links">
