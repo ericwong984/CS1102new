@@ -1,26 +1,31 @@
+.nav-container {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+}
+
+.nav-menu {
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .nav-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+
 .nav-link:hover {
     background: #f5f5f5; /* 灰色背景 */
     transform: translateY(-2px); /* 轻微上浮效果 */
 }
 
-@media (max-width: 768px) {
-    .psvr-nav {
-        flex-direction: column;
-        padding: 1rem;
-    }
-    
-    .nav-header {
-        position: static;
-        transform: none;
-        margin: 1rem 0;
-        justify-content: left;
-    }
-    
-    .nav-menu {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-}
+
 
 background: linear-gradient(45deg, #00ff87, #60efff);
 -webkit-background-clip: text;
