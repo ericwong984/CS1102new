@@ -21,6 +21,12 @@ main, .hero-section {
   margin-top: 100px; /* 根据导航栏实际高度调整 */
 }
 
+.navbar {
+  position: fixed !important; 
+  top: 0 !important;
+  left: 0 !important;
+}
+
 
 .nav-menu {
     justify-content: center;
