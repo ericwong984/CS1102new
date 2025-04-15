@@ -1,0 +1,55 @@
+<!-- use-cases.html -->
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR银行应用场景</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/use-cases.css">
+</head>
+<body>
+    <!-- 共用导航栏 -->
+    <ul class="nav-menu">
+                <li><a href="#Home" class="nav-link">Home</a></li>
+                <li><a href="Use Case.html" class="nav-link active">Use Cases</a></li>
+                <li><a href="#tech" class="nav-link">Technology</a></li>
+                <li><a href="#Interaction" class="nav-link">Let's Try!</a></li>
+            </ul>
+
+    <!-- 案例页专属内容 -->
+    <main class="use-cases-container">
+        <h1 class="page-title">VR银行解决方案</h1>
+        
+        <!-- 案例筛选标签 -->
+        <div class="filter-tabs">
+            <button class="tab active" data-filter="all">全部</button>
+            <button class="tab" data-filter="retail">个人银行</button>
+            <button class="tab" data-filter="corporate">企业金融</button>
+        </div>
+
+        <!-- 案例卡片容器 -->
+        <div class="case-grid">
+            <!-- 案例卡片 1 -->
+            <article class="case-card retail">
+                <div class="card-image">
+                    <img src="assets/images/vr-branch.jpg" alt="虚拟分行">
+                    <div class="hover-overlay">
+                        <button class="detail-button">查看详情</button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>虚拟分行体验</h3>
+                    <ul class="feature-list">
+                        <li>24小时远程服务</li>
+                        <li>3D柜台互动</li>
+                        <li>智能语音助手</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- 更多案例卡片... -->
+        </div>
+    </main>
+</body>
+</html>
