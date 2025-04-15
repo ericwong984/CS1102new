@@ -140,19 +140,60 @@
             position: relative; /* 确保在遮罩层上方 */
         }
 
+.hero-section {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.3)),
+                        url('assets/vr-banking-bg.jpg') center/cover fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+    
+    .hero-title {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 4.5rem;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 1.2;
+            margin: 0 2rem;
+            background: linear-gradient(45deg, #00ff87, #60efff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(96,239,255,0.5);
+            animation: title-glow 2s ease-in-out infinite alternate;
+            position: relative;
+        }
+        @keyframes title-glow 
+    {
+            0% { text-shadow: 0 0 20px rgba(96,239,255,0.3); }
+            100% { text-shadow: 0 0 50px rgba(96,239,255,0.8); }
+        }
+    @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            .hero-title::after {
+                font-size: 1.2rem;
+                bottom: -1.8rem;
+            }
+        }
         /* 其他原有样式保持不变... */
     </style>
 </head>
 <body>
+    <section class="hero-section">
+        <h1 class="hero-title">Welcome to the future world of VR Banking</h1>
+        </section>
     <!-- 原有导航结构保持不变 -->
     <nav class="landing-nav">
         <!-- 导航内容 -->
          <ul class="nav-menu">
              <div></div>
-            <li><a href="#psvr" class="nav-link">Home</a></li>
-            <li><a href="#games" class="nav-link active">Use Cases</a></li>
-            <li><a href="#specs" class="nav-link">Technology</a></li>
-            <li><a href="#accessories" class="nav-link">Let's Try!</a></li>
+            <li><a href="#Home" class="nav-link active">Home</a></li>
+            <li><a href="#Use Cases" class="nav-link">Use Cases</a></li>
+            <li><a href="#Technology" class="nav-link">Technology</a></li>
+            <li><a href="#Interaction" class="nav-link">Let's Try!</a></li>
     </nav>
 </body>
 </html>
