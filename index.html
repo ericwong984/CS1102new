@@ -198,3 +198,159 @@
         </section>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS VR 产品页面</title>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* 内容区块容器 */
+        .content-section {
+            padding: 4rem 2rem;
+            background: #f8f9fa;
+        }
+
+        /* 分栏布局 */
+        .split-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        /* 文字内容区 */
+        .text-content {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        /* 图片内容区 */
+        .image-content {
+            flex: 1;
+            position: relative;
+        }
+
+        .image-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* 标题样式 */
+        .section-title {
+            font-size: 2.5rem;
+            color: #1a237e;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 80%;
+            background: #0072ce;
+        }
+
+        /* 文字描述样式 */
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 2rem;
+        }
+
+        /* 特性列表 */
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-item {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .feature-item::before {
+            content: '▶';
+            color: #0072ce;
+            position: absolute;
+            left: 0;
+            top: 0.2rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .split-layout {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .text-content {
+                padding: 1rem;
+                order: 2;
+            }
+
+            .image-content {
+                order: 1;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 第一个内容区块 -->
+    <section class="content-section">
+        <div class="split-layout">
+            <div class="text-content">
+                <h2 class="section-title">Overview of VR, AR, and the Metaverse </h2>
+                <p class="description">透過 PS VR 頭戴裝置與 PlayStation® 主機，讓自己置身於非凡遊戲世界的中心。</p>
+                <ul class="feature-list">
+                    <li class="feature-item">Virtual Reality (VR)：creates a fully immersive digital environment that replaces the real world, typically experienced through headsets, allowing users to interact within a simulated space. </li>
+                    <li class="feature-item">Augmented Reality (AR)：enhances the real world by overlaying digital elements, such as images or data, onto it, accessible via devices like smartphones or AR glasses. </li>
+                </ul>
+            </div>
+            <div class="image-content">
+                <img src="assets/psvr-headset.jpg" alt="PS VR 頭戴裝置">
+            </div>
+        </div>
+    </section>
+
+    <!-- 第二个内容区块（左右交替） -->
+    <section class="content-section" style="background: #fff;">
+        <div class="split-layout">
+            <div class="image-content">
+                <img src="assets/psvr-games.jpg" alt="PS VR 遊戲">
+            </div>
+            <div class="text-content">
+                <h2 class="section-title">沉浸體驗遊戲</h2>
+                <p class="description">精選多款專為 VR 打造的遊戲作品，帶來前所未有的沉浸式體驗。</p>
+                <ul class="feature-list">
+                    <li class="feature-item">支援超過 500 款 VR 遊戲</li>
+                    <li class="feature-item">獨家 3D 音效技術</li>
+                    <li class="feature-item">動態控制器精準追蹤</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
