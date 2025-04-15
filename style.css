@@ -14,19 +14,25 @@
     align-items: center;
 }
 
+.nav-brand {
+    color: white;
+    font-size: 1.5rem;
+}
+
 .nav-menu {
     display: flex;
     gap: 2rem;
-    list-style: none; /* 关键！移除项目符号 */
+    list-style: none; /* 移除点状符号 */
 }
 
-.nav-link {
+.nav-menu a {
     color: white;
     text-decoration: none;
     padding: 0.5rem 1rem;
+    border-radius: 4px;
     transition: background 0.3s;
 }
 
-.nav-link:hover {
+.nav-menu a:hover {
     background: rgba(255,255,255,0.1);
 }
