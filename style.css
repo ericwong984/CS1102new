@@ -3,34 +3,9 @@
     grid-template-columns: 1fr auto 1fr;
 }
 
-/* 原导航栏样式 */
-.navbar {
-  background: #ffffff;
-  padding: 1.5rem 2rem;
-  /* 新增以下代码 */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-/* 在第一个内容区块前添加间距 */
-main, .hero-section {
-  margin-top: 100px; /* 根据导航栏实际高度调整 */
-}
-
-.navbar {
-  position: fixed !important; 
-  top: 0 !important;
-  left: 0 !important;
-}
 
 
-.nav-menu {
-    justify-content: center;
-}
+
 
 @media (max-width: 768px) {
     .nav-container {
