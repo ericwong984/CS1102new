@@ -30,3 +30,19 @@ animation: title-glow 2s infinite alternate;
     0% { text-shadow: 0 0 20px rgba(96,239,255,0.3); }
     100% { text-shadow: 0 0 50px rgba(96,239,255,0.8); }
 }
+.hero-title {
+    transition: transform 0.3s;
+}
+.hero-title:hover {
+    transform: scale(1.05);
+}
+
+.hero-title {
+    animation: typewriter 2s steps(40) forwards;
+    overflow: hidden;
+    white-space: nowrap;
+}
+@keyframes typewriter {
+    from { width: 0 }
+    to { width: 100% }
+}
