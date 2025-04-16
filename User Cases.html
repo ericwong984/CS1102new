@@ -124,3 +124,206 @@
 </body>
 </html>
 
+/* 卡片 */ 
+
+<!DOCTYPE html>
+<html lang="zh-En">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B&C</title>
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            padding: 2rem;
+        }
+
+        /* 过滤按钮样式 */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .filter-btn {
+            padding: 1rem 3rem;
+            border: none;
+            background: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            position: relative;
+            color: #6b7280;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            color: #1d4ed8;
+            font-weight: 600;
+        }
+
+        .filter-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 3px;
+            background: #1d4ed8;
+            border-radius: 2px;
+        }
+
+        /* 内容卡片样式 */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .content-card.hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            height: 0;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .card-title {
+            color: #1f2937;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #1d4ed8;
+            display: inline-block;
+        }
+
+        .card-text {
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .learn-more {
+            color: #1d4ed8;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: opacity 0.3s;
+        }
+
+        .learn-more:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- 过滤按钮 -->
+    <div class="filter-container">
+        <button class="filter-btn active" data-filter="Benefits">Benefits</button>
+        <button class="filter-btn" data-filter="challenge">Challenge</button>
+    </div>
+
+    <!-- 内容容器 -->
+    <div class="content-grid">
+        <!-- Problem 内容 -->
+        <div class="content-card Benefits">
+            <h2 class="card-title">Enhance customer experience</h2>
+            <p class="card-text">Immersive virtual branches enable 24/7 personalized banking.</p>
+            <a href="#" class="learn-more">Get More Information →</a>
+        </div>
+
+        <div class="content-card Benefits">
+            <h2 class="card-title">Cost efficiency</h2>
+            <p class="card-text">Cuts branched costs, streamlines VR training. </p>
+            <a href="#" class="learn-more">Get More Information →</a>
+        </div>
+
+        <div class="content-card Benefits">
+            <h2 class="card-title">Innovation</h2>
+            <p class="card-text">Supports digital assets, blockchain transactions. </p>
+            <a href="#" class="learn-more">Get More Information →</a>
+        </div>
+
+        <div class="Reach">
+            <h2 class="card-title">Innovation</h2>
+            <p class="card-text">Expands global access. </p>
+            <a href="#" class="learn-more">Get More Information →</a>
+        </div>
+
+        <!-- Challenge 内容 -->
+        <div class="content-card challenge">
+            <h2 class="card-title">Security</h2>
+            <p class="card-text">Data breach risk in virtual platforms. </p>
+            <a href="#" class="learn-more">LEARN MORE →</a>
+        </div>
+
+        <div class="content-card challenge">
+            <h2 class="card-title">Infrastructure Costs</h2>
+            <p class="card-text">High VR/Metaverse development expenses.</p>
+            <a href="#" class="learn-more">LEARN MORE →</a>
+        </div>
+
+        <div class="content-card challenge">
+            <h2 class="card-title">Access</h2>
+            <p class="card-text">VR hardware, internet limits adoption.</p>
+            <a href="#" class="learn-more">LEARN MORE →</a>
+        </div>
+
+        <div class="content-card challenge">
+            <h2 class="card-title">Regulation</h2>
+            <p class="card-text">Unclear rules for digital transactions.</p>
+            <a href="#" class="learn-more">LEARN MORE →</a>
+        </div>
+        
+    </div>
+
+    <script>
+        // 切换过滤器功能
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const contentCards = document.querySelectorAll('.content-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 移除所有激活状态
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // 添加当前激活状态
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                
+                // 切换内容显示
+                contentCards.forEach(card => {
+                    if (filter === 'all' || card.classList.contains(filter)) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
