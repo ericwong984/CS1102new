@@ -325,30 +325,6 @@
         
     </div>
 
-    <script>
-        // 切换过滤器功能
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const contentCards = document.querySelectorAll('.content-card');
-
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // 移除所有激活状态
-                filterBtns.forEach(b => b.classList.remove('active'));
-                // 添加当前激活状态
-                btn.classList.add('active');
-                
-                const filter = btn.dataset.filter;
-                
-                // 切换内容显示
-                contentCards.forEach(card => {
-                    if (filter === 'all' || card.classList.contains(filter)) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
-                    }
-                });
-            });
-        });
-    </script>
+    
 </body>
 </html>
