@@ -133,6 +133,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>B&C</title>
     <style>
+
+        body {
+            padding-top: 80px; /* 根据导航栏实际高度调整 */
+        }
+
+        /* 修改过滤按钮默认状态 */
+        .filter-btn[data-filter="benefit"] {
+            color: #1d4ed8;
+            font-weight: 600;
+        }
+        .filter-btn[data-filter="benefit"]::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 3px;
+            background: #1d4ed8;
+            border-radius: 2px;
+        }
+
+        /* 隐藏非默认内容 */
+        .content-card:not(.benefit) {
+            display: none;
+        }
+
+        
         /* 基础样式 */
         * {
             margin: 0;
