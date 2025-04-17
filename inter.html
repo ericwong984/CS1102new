@@ -131,77 +131,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VR银行互动体验中心</title>
     <style>
-        :root {
-            --primary-blue: #1a237e;
-            --accent-cyan: #00b4ff;
-            --background: #f8f9fa;
-            --card-bg: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
+        /* 基础重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
         }
 
-        /* 导航栏样式保持原有 */
-
-        /* 主内容区优化 */
-        .container {
-            width: 90%;
-            max-width: 800px;
-            margin: 4rem auto 2rem;
-            background: var(--card-bg);
-            border-radius: 20px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
-            padding: 2.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* 选项按钮美化 */
-        .options-grid {
-            display: grid;
-            gap: 1.2rem;
-            grid-template-columns: repeat(2, 1fr);
-            margin: 2rem 0;
-        }
-
-        .option-btn {
-            padding: 1.5rem;
-            background: white;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            text-align: left;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .option-btn::before {
-            content: '';
-            position: absolute;
+        /* 导航栏样式 */
+        .navbar {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-cyan) 100%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
         }
 
-        .option-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-        }
-
-        .option-btn:hover::before {
-            opacity: 0.05;
-        }
-
-        .option-content {
-            position: relative;
-            z-index: 1;
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
+            justify-content: space-between;
             align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #1a237e;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: #333;
+            text-decoration: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .nav-link:hover {
+            background: #f5f5f5;
+        }
+
+        /* 主内容区 */
+        main {
+            padding-top: 80px;
+            min-height: 100vh;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        /* 测验系统样式 */
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .lets-try-btn {
+            padding: 1rem 2rem;
+            background: #1a237e;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .lets-try-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .options-panel {
+            display: none;
+            margin-top: 1.5rem;
             gap: 1rem;
+        }
+
+        .quiz-option {
+            padding: 1rem;
+            background: #f8f9fa;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover {
+            border-color: #00b4ff;
+        }
+
+        /* 题目样式 */
+        .question-box {
+            margin: 2rem 0;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            color: #1a237e;
+            margin-bottom: 2rem;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .option-card {
+            padding: 1.5rem;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .option-letter {
@@ -213,85 +279,120 @@
             align-items: center;
             justify-content: center;
             font-weight: 600;
-            color: var(--primary-blue);
-            flex-shrink: 0;
+            color: #1a237e;
+            margin-bottom: 1rem;
         }
 
         .option-text {
             color: #374151;
             line-height: 1.5;
-            font-size: 1rem;
         }
 
         /* 正确/错误状态 */
         .correct {
             background: #f0fdf4 !important;
-            box-shadow: 0 4px 6px rgba(16,185,129,0.15) !important;
-        }
-
-        .correct .option-letter {
-            background: #dcfce7;
-            color: #166534;
+            border-color: #22c55e !important;
         }
 
         .wrong {
             background: #fff1f2 !important;
-            box-shadow: 0 4px 6px rgba(239,68,68,0.15) !important;
+            border-color: #ef4444 !important;
         }
 
-        .wrong .option-letter {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        @media (max-width: 768px) {
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .option-btn {
-                padding: 1.2rem;
-            }
+        .score-board {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin: 2rem 0;
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏保持原有结构 -->
-
-    <div class="container">
-        <!-- 菜单结构保持原有 -->
-
-        <div class="quiz-container" id="quizContainer" style="display: none;">
-            <div class="question-box" id="questionBox"></div>
-            <div class="score-board" id="scoreBoard"></div>
-            <button class="restart-btn" onclick="startQuiz()" style="display: none;">重新挑战</button>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">VR Banking</div>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link">首页</a></li>
+                <li><a href="#" class="nav-link">应用场景</a></li>
+                <li><a href="#" class="nav-link">技术细节</a></li>
+                <li><a href="#" class="nav-link active">互动体验</a></li>
+            </ul>
         </div>
-    </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="quiz-header">
+                <button class="lets-try-btn" onclick="toggleMenu()">开启体验 ▼</button>
+                <div class="options-panel" id="optionsPanel">
+                    <button class="quiz-option" onclick="startQuiz()">知识测验</button>
+                    <button class="quiz-option" onclick="window.open('https://example.com/game', '_blank')">互动游戏</button>
+                </div>
+            </div>
+
+            <div class="quiz-container" id="quizContainer">
+                <div class="question-box" id="questionBox"></div>
+                <div class="score-board" id="scoreBoard"></div>
+            </div>
+        </div>
+    </main>
 
     <script>
-        // 修复后的JavaScript代码
+        // 测验数据
         const quizData = [
             {
-                question: "What role does AI play in VR banking?",
+                question: "人工智能在VR银行中的主要作用是什么？",
                 options: [
-                    "Creates immersive virtual environments",
-                    "Personalizes financial advice and detects fraud",
-                    "Connects VR headsets to 5G networks",
-                    "Simulates physical touch"
+                    "创建沉浸式虚拟环境",
+                    "个性化财务建议和欺诈检测",
+                    "连接VR设备到5G网络",
+                    "模拟物理触感"
                 ],
                 answer: 1
             },
-            // 其他题目保持相同结构...
+            {
+                question: "VR和AR的主要区别是什么？",
+                options: [
+                    "VR叠加数字元素到现实世界，AR创建完全沉浸的数字环境",
+                    "VR创建完全沉浸的数字环境，AR叠加数字元素到现实世界",
+                    "两者都创建沉浸式数字环境",
+                    "两者都通过数字数据增强现实世界"
+                ],
+                answer: 1
+            },
+            {
+                question: "实施VR/元宇宙银行的主要挑战是什么？",
+                options: [
+                    "提升客户信任度",
+                    "高昂的基础设施成本",
+                    "减少对VR硬件的需求",
+                    "简化的监管规则"
+                ],
+                answer: 1
+            },
+            {
+                question: "哪种技术保障VR银行的数字交易安全？",
+                options: [
+                    "5G网络",
+                    "触觉反馈",
+                    "区块链",
+                    "AR眼镜"
+                ],
+                answer: 2
+            }
         ];
 
         let currentQuestion = 0;
         let score = 0;
 
+        // 切换菜单显示
         function toggleMenu() {
             const panel = document.getElementById('optionsPanel');
-            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+            panel.style.display = panel.style.display === 'none' ? 'flex' : 'none';
         }
 
+        // 开始测验
         function startQuiz() {
             currentQuestion = 0;
             score = 0;
@@ -300,35 +401,33 @@
             showQuestion();
         }
 
+        // 显示题目
         function showQuestion() {
             const question = quizData[currentQuestion];
             const optionsHTML = question.options.map((option, index) => `
-                <button class="option-btn" onclick="checkAnswer(${index})">
-                    <div class="option-content">
-                        <div class="option-letter">${String.fromCharCode(65 + index)}</div>
-                        <div class="option-text">${option}</div>
-                    </div>
-                </button>
+                <div class="option-card" onclick="checkAnswer(${index})">
+                    <div class="option-letter">${String.fromCharCode(65 + index)}</div>
+                    <div class="option-text">${option}</div>
+                </div>
             `).join('');
 
             document.getElementById('questionBox').innerHTML = `
-                <div class="question-text">Q${currentQuestion + 1}: ${question.question}</div>
+                <div class="question-text">问题 ${currentQuestion + 1}: ${question.question}</div>
                 <div class="options-grid">${optionsHTML}</div>
             `;
         }
 
+        // 检查答案
         function checkAnswer(selectedIndex) {
-            const options = document.querySelectorAll('.option-btn');
+            const options = document.querySelectorAll('.option-card');
             const correctIndex = quizData[currentQuestion].answer;
 
-            options.forEach((btn, index) => {
-                btn.disabled = true;
-                btn.classList.remove('correct', 'wrong');
-                
+            options.forEach((option, index) => {
+                option.classList.remove('correct', 'wrong');
                 if(index === correctIndex) {
-                    btn.classList.add('correct');
+                    option.classList.add('correct');
                 } else if(index === selectedIndex) {
-                    btn.classList.add('wrong');
+                    option.classList.add('wrong');
                 }
             });
 
@@ -339,22 +438,19 @@
                 if(currentQuestion < quizData.length) {
                     showQuestion();
                 } else {
-                    showFinalScore();
+                    showResult();
                 }
-            }, 1200);
+            }, 1500);
         }
 
-        function showFinalScore() {
+        // 显示结果
+        function showResult() {
             document.getElementById('questionBox').innerHTML = '';
             document.getElementById('scoreBoard').innerHTML = `
-                <div style="text-align: center; padding: 2rem;">
-                    <h2 style="color: var(--primary-blue); margin-bottom: 1rem;">测验完成！🎉</h2>
-                    <div style="font-size: 1.5rem; color: #4b5563;">
-                        正确率：<span style="color: var(--primary-blue); font-weight: 600;">${score}</span>/${quizData.length}
-                    </div>
-                </div>
+                <h3>测验完成！</h3>
+                <p>您的得分：${score}/${quizData.length}</p>
+                <button class="lets-try-btn" onclick="startQuiz()">重新挑战</button>
             `;
-            document.querySelector('.restart-btn').style.display = 'block';
         }
     </script>
 </body>
