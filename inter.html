@@ -132,8 +132,8 @@
     <title>VR银行互动体验中心</title>
     <style>
         :root {
-            --primary-blue: #1a237e;
-            --accent-cyan: #00b4ff;
+            --primary-color: #1a237e;
+            --accent-color: #00b4ff;
             --background: #f8f9fa;
         }
 
@@ -164,7 +164,7 @@
         .lets-try-btn {
             padding: 1rem 2rem;
             font-size: 1.2rem;
-            background: var(--primary-blue);
+            background: var(--primary-color);
             color: white;
             border: none;
             border-radius: 8px;
@@ -181,6 +181,22 @@
             margin-top: 1.5rem;
         }
 
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: var(--background);
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            border-color: var(--accent-color);
+        }
+
         .quiz-container {
             display: none;
         }
@@ -191,64 +207,30 @@
 
         .question-text {
             font-size: 1.3rem;
-            color: var(--primary-blue);
-            margin-bottom: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
         }
-
-        .options-grid {
-            display: grid;
-            gap: 1rem;
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .option-btn {
-            padding: 1.2rem;
-            background: #f1f5f9;
-            border: 2px solid #cbd5e1;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: left;
-            position: relative;
-        }
-
-        .option-letter {
-            display: inline-block;
-            width: 25px;
-            font-weight: bold;
-            color: var(--primary-blue);
-        }
-
-        .option-btn:hover {
-            border-color: var(--accent-cyan);
-        }
-
-        .correct { background: #dcfce7 !important; border-color: #22c55e !important; }
-        .wrong { background: #fee2e2 !important; border-color: #ef4444 !important; }
 
         .score-board {
             font-size: 1.5rem;
-            color: var(--primary-blue);
+            color: var(--primary-color);
             text-align: center;
             margin: 2rem 0;
         }
 
         .restart-btn {
-            background: var(--accent-cyan);
+            background: var(--accent-color);
             color: white;
             padding: 1rem 2rem;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             display: block;
-            margin: 1rem auto;
+            margin: 0 auto;
         }
 
-        @media (max-width: 768px) {
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        .correct { background: #d1fae5 !important; border-color: #10b981 !important; }
+        .wrong { background: #fee2e2 !important; border-color: #ef4444 !important; }
     </style>
 </head>
 <body>
@@ -271,42 +253,42 @@
     <script>
         const quizData = [
             {
-                question: "What role does AI play in VR banking?",
+                question: "人工智能在VR银行中的主要作用是什么？",
                 options: [
-                    "Creates immersive virtual environments",
-                    "Personalizes financial advice and detects fraud",
-                    "Connects VR headsets to 5G networks",
-                    "Simulates physical touch"
+                    "创建沉浸式虚拟环境",
+                    "个性化财务建议和欺诈检测",
+                    "连接VR设备到5G网络",
+                    "模拟物理触感"
                 ],
                 answer: 1
             },
             {
-                question: "What is the main difference between VR and AR?",
+                question: "VR和AR的主要区别是什么？",
                 options: [
-                    "VR overlays digital elements on the real world; AR creates a fully immersive digital environment",
-                    "VR creates a fully immersive digital environment; AR overlays digital elements on the real world",
-                    "Both create immersive digital environments",
-                    "Both enhance the real world with digital data"
+                    "VR叠加数字元素到现实世界，AR创建完全沉浸的数字环境",
+                    "VR创建完全沉浸的数字环境，AR叠加数字元素到现实世界",
+                    "两者都创建沉浸式数字环境",
+                    "两者都通过数字数据增强现实世界"
                 ],
                 answer: 1
             },
             {
-                question: "What is the challenge of implementing VR/Metaverse in banking?",
+                question: "实施VR/元宇宙银行的主要挑战是什么？",
                 options: [
-                    "Improved customer trust",
-                    "High infrastructure costs for development",
-                    "Reduced need for VR hardware",
-                    "Simplified regulatory rules"
+                    "提升客户信任度",
+                    "高昂的基础设施成本",
+                    "减少对VR硬件的需求",
+                    "简化的监管规则"
                 ],
                 answer: 1
             },
             {
-                question: "Which technology ensures secure transactions in VR banking?",
+                question: "哪种技术保障VR银行的数字交易安全？",
                 options: [
-                    "5G",
-                    "Haptic feedback",
-                    "Blockchain",
-                    "AR glasses"
+                    "5G网络",
+                    "触觉反馈",
+                    "区块链",
+                    "AR眼镜"
                 ],
                 answer: 2
             }
@@ -332,17 +314,15 @@
             const question = quizData[currentQuestion];
             const optionsHTML = question.options.map((option, index) => `
                 <button class="option-btn" onclick="checkAnswer(${index})">
-                    <span class="option-letter">${String.fromCharCode(65 + index)}</span>
-                    ${option}
+                    ${String.fromCharCode(97 + index)}) ${option}
                 </button>
             `).join('');
 
             document.getElementById('questionBox').innerHTML = `
                 <div class="question-text">Q${currentQuestion + 1}: ${question.question}</div>
-                <div class="options-grid">${optionsHTML}</div>
+                <div class="options-panel">${optionsHTML}</div>
             `;
             document.getElementById('scoreBoard').style.display = 'none';
-            document.querySelector('.restart-btn').style.display = 'none';
         }
 
         function checkAnswer(selectedIndex) {
@@ -370,7 +350,7 @@
             document.getElementById('questionBox').innerHTML = '';
             document.getElementById('scoreBoard').innerHTML = `
                 测验完成！<br>
-                最终得分：${score}/${quizData.length}
+                正确率：${score}/${quizData.length}
             `;
             document.getElementById('scoreBoard').style.display = 'block';
             document.querySelector('.restart-btn').style.display = 'block';
