@@ -321,31 +321,43 @@
         let score = 0;
 
         function toggleMenu() {
-            const panel = document.getElementById('optionsPanel');
-            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+            if(select.value === 'quiz') {
+                document.getElementById('quizContainer').style.display = 'block';
+                startQuiz();
+            } else if(select.value === 'game') {
+                window.open('https://example-vr-game.com', '_blank');
+                select.value = '';
+            }
         }
 
         function startQuiz() {
             currentQuestion = 0;
             score = 0;
-            document.getElementById('quizContainer').style.display = 'block';
-            document.getElementById('optionsPanel').style.display = 'none';
+            document.getElementById('score-board').style.display = 'none';
+            document.getElementById('.restart-btn').style.display = 'none';
             showQuestion();
         }
 
         function showQuestion() {
+            const questionArea = document.getElementById('questionArea');
             const question = quizData[currentQuestion];
-            const optionsHTML = question.options.map((option, index) => `
+            
+            let optionsHTML = question.options.map((option, index) => `
                 <button class="option-btn" onclick="checkAnswer(${index})">
                     ${String.fromCharCode(97 + index)}) ${option}
                 </button>
             `).join('');
 
-            document.getElementById('questionBox').innerHTML = `
-                <div class="question-text">Q${currentQuestion + 1}: ${question.question}</div>
-                <div class="options-panel">${optionsHTML}</div>
+            questionArea.innerHTML = `
+                <div class="question-box">
+                    <div class="question-text">
+                        Q${currentQuestion + 1}: ${question.question}
+                    </div>
+                    <div class="options-grid">
+                        ${optionsHTML}
+                    </div>
+                </div>
             `;
-            document.getElementById('scoreBoard').style.display = 'none';
         }
 
         function checkAnswer(selectedIndex) {
@@ -354,7 +366,11 @@
             
             options.forEach((btn, index) => {
                 btn.disabled = true;
-                btn.classList.add(index === correctIndex ? 'correct' : (index === selectedIndex ? 'wrong' : ''));
+                if(index === correctIndex) {
+                    btn.style.borderColor = '#10b981';
+                } else if(index === selectedIndex) {
+                    btn.style.borderColor = '#ef4444';
+                }
             });
 
             if(selectedIndex === correctIndex) score++;
@@ -370,10 +386,10 @@
         }
 
         function showFinalScore() {
-            document.getElementById('questionBox').innerHTML = '';
+            document.getElementById('questionArea').innerHTML = '';
             document.getElementById('scoreBoard').innerHTML = `
-                测验完成！<br>
-                正确率：${score}/${quizData.length}
+                Complete！<br>
+                Correct Rate：${score}/${quizData.length}
             `;
             document.getElementById('scoreBoard').style.display = 'block';
             document.querySelector('.restart-btn').style.display = 'block';
