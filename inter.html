@@ -131,58 +131,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VR银行互动体验中心</title>
     <style>
-        /* 基础重置 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        /* 导航栏样式 */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: white;
-            padding: 1rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-brand {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #1a237e;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-link {
-            color: #333;
-            text-decoration: none;
-            padding: 0.8rem 1.2rem;
-            border-radius: 8px;
-            transition: background 0.3s;
-        }
-
-        .nav-link:hover {
-            background: #f5f5f5;
-        }
-
         /* 主内容区 */
         main {
             padding-top: 80px;
@@ -309,19 +257,7 @@
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">VR Banking</div>
-            <ul class="nav-menu">
-                <li><a href="#" class="nav-link">首页</a></li>
-                <li><a href="#" class="nav-link">应用场景</a></li>
-                <li><a href="#" class="nav-link">技术细节</a></li>
-                <li><a href="#" class="nav-link active">互动体验</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <main>
+ <main>
         <div class="container">
             <div class="quiz-header">
                 <button class="lets-try-btn" onclick="toggleMenu()">开启体验 ▼</button>
