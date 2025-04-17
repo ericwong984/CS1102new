@@ -123,3 +123,241 @@
     </nav>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR银行互动体验</title>
+    <style>
+        :root {
+            --primary-blue: #1a237e;
+            --accent-cyan: #00b4ff;
+            --background: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--background);
+            margin: 2rem;
+        }
+
+        .menu-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .lets-try-menu {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border: 2px solid var(--primary-blue);
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .question-box {
+            margin-bottom: 2rem;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .option-btn {
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            background: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+        }
+
+        .score-board {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .restart-btn {
+            background: var(--accent-cyan);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <select class="lets-try-menu" onchange="handleMenuSelect(this)">
+            <option value="">Let's Try!</option>
+            <option value="quiz">知识测验</option>
+            <option value="game">互动游戏</option>
+        </select>
+
+        <div class="quiz-container" id="quizContainer">
+            <div id="questionArea"></div>
+            <div class="score-board" id="scoreBoard"></div>
+            <button class="restart-btn" onclick="startQuiz()" style="display: none;">重新开始</button>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "人工智能在VR银行中的主要作用是什么？",
+                options: [
+                    "创建沉浸式虚拟环境",
+                    "个性化财务建议和欺诈检测",
+                    "连接VR设备到5G网络",
+                    "模拟物理触感"
+                ],
+                answer: 1
+            },
+            {
+                question: "VR和AR的主要区别是什么？",
+                options: [
+                    "VR叠加数字元素到现实世界，AR创建完全沉浸的数字环境",
+                    "VR创建完全沉浸的数字环境，AR叠加数字元素到现实世界",
+                    "两者都创建沉浸式数字环境",
+                    "两者都通过数字数据增强现实世界"
+                ],
+                answer: 1
+            },
+            {
+                question: "实施VR/元宇宙银行的主要挑战是什么？",
+                options: [
+                    "提升客户信任度",
+                    "高昂的基础设施成本",
+                    "减少对VR硬件的需求",
+                    "简化的监管规则"
+                ],
+                answer: 1
+            },
+            {
+                question: "哪种技术保障VR银行的数字交易安全？",
+                options: [
+                    "5G网络",
+                    "触觉反馈",
+                    "区块链",
+                    "AR眼镜"
+                ],
+                answer: 2
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function handleMenuSelect(select) {
+            if(select.value === 'quiz') {
+                document.getElementById('quizContainer').style.display = 'block';
+                startQuiz();
+            } else if(select.value === 'game') {
+                window.open('https://example-vr-game.com', '_blank');
+                select.value = '';
+            }
+        }
+
+        function startQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('scoreBoard').style.display = 'none';
+            document.querySelector('.restart-btn').style.display = 'none';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const questionArea = document.getElementById('questionArea');
+            const question = quizData[currentQuestion];
+            
+            let optionsHTML = question.options.map((option, index) => `
+                <button class="option-btn" onclick="checkAnswer(${index})">
+                    ${String.fromCharCode(97 + index)}) ${option}
+                </button>
+            `).join('');
+
+            questionArea.innerHTML = `
+                <div class="question-box">
+                    <div class="question-text">
+                        Q${currentQuestion + 1}: ${question.question}
+                    </div>
+                    <div class="options-grid">
+                        ${optionsHTML}
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkAnswer(selectedIndex) {
+            const correctIndex = quizData[currentQuestion].answer;
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((btn, index) => {
+                btn.disabled = true;
+                if(index === correctIndex) {
+                    btn.style.borderColor = '#10b981';
+                } else if(index === selectedIndex) {
+                    btn.style.borderColor = '#ef4444';
+                }
+            });
+
+            if(selectedIndex === correctIndex) score++;
+
+            setTimeout(() => {
+                currentQuestion++;
+                if(currentQuestion < quizData.length) {
+                    showQuestion();
+                } else {
+                    showFinalScore();
+                }
+            }, 1500);
+        }
+
+        function showFinalScore() {
+            document.getElementById('questionArea').innerHTML = '';
+            const scoreBoard = document.getElementById('scoreBoard');
+            scoreBoard.innerHTML = `
+                测验完成！<br>
+                您的得分：${score}/${quizData.length}
+            `;
+            scoreBoard.style.display = 'block';
+            document.querySelector('.restart-btn').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
