@@ -420,22 +420,26 @@
                 <button class="lets-try-btn" onclick="toggleMenu()">Let's Try ▼</button>
                 <div class="options-panel" id="optionsPanel">
                     <button class="quiz-option" onclick="startQuiz()">Quiz</button>
-                    <button class="quiz-option" onclick="window.open('https://konterball.com', '_blank')">Game</button>
+                    <button class="quiz-option" onclick="openGame()">Game</button>
                 </div>
             </div>
 
-        <div class="container">
-            <!-- 测验系统保持原有 -->
             <div class="game-container" id="gameContainer">
                 <button class="close-btn" onclick="closeGame()">× 关闭</button>
                 <iframe 
                     class="game-iframe" 
-                    src="https://konterball.com/" 
+                    src="https://unit9.github.io/vivid/" 
                     allowfullscreen
                     loading="lazy"
                 ></iframe>
             </div>
+
+            <div class="quiz-container" id="quizContainer">
+                <div class="question-box" id="questionBox"></div>
+                <div class="score-board" id="scoreBoard"></div>
+            </div>
         </div>
+    </main>
 
           <script>
         // 修改游戏按钮点击事件
