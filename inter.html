@@ -449,13 +449,15 @@
     
 
           <script>
-      function showContent(contentType) {
+        // 内容切换逻辑
+        function showContent(contentType) {
             // 隐藏所有内容区块
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active-section');
             });
 
-if(contentType === 'quiz') {
+            // 显示选定内容
+            if(contentType === 'quiz') {
                 document.getElementById('quizSection').classList.add('active-section');
             } else if(contentType === 'game') {
                 document.getElementById('gameSection').classList.add('active-section');
