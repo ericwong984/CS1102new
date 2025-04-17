@@ -260,10 +260,10 @@
  <main>
         <div class="container">
             <div class="quiz-header">
-                <button class="lets-try-btn" onclick="toggleMenu()">开启体验 ▼</button>
+                <button class="lets-try-btn" onclick="toggleMenu()">Let's Try ▼</button>
                 <div class="options-panel" id="optionsPanel">
-                    <button class="quiz-option" onclick="startQuiz()">知识测验</button>
-                    <button class="quiz-option" onclick="window.open('https://example.com/game', '_blank')">互动游戏</button>
+                    <button class="quiz-option" onclick="startQuiz()">Quiz</button>
+                    <button class="quiz-option" onclick="window.open('https://konterball.com', '_blank')">Game</button>
                 </div>
             </div>
 
@@ -278,42 +278,42 @@
         // 测验数据
         const quizData = [
             {
-                question: "人工智能在VR银行中的主要作用是什么？",
+                question: "What role does AI play in VR banking?",
                 options: [
-                    "创建沉浸式虚拟环境",
-                    "个性化财务建议和欺诈检测",
-                    "连接VR设备到5G网络",
-                    "模拟物理触感"
+                    "Creates immersive virtual environments",
+                    "Personalizes financial advice and detects fraud",
+                    "Connects VR headsets to 5G networks",
+                    "Simulates physical touch"
                 ],
                 answer: 1
             },
             {
-                question: "VR和AR的主要区别是什么？",
+                question: "What is the main difference between Virtual Reality (VR) and Augmented Reality (AR)?",
                 options: [
-                    "VR叠加数字元素到现实世界，AR创建完全沉浸的数字环境",
-                    "VR创建完全沉浸的数字环境，AR叠加数字元素到现实世界",
-                    "两者都创建沉浸式数字环境",
-                    "两者都通过数字数据增强现实世界"
+                    "VR overlays digital elements on the real world; AR creates a fully immersive digital environment",
+                    "VR creates a fully immersive digital environment; AR overlays digital elements on the real world",
+                    " Both create immersive digital environments",
+                    "Both enhance the real world with digital data"
                 ],
                 answer: 1
             },
             {
-                question: "实施VR/元宇宙银行的主要挑战是什么？",
+                question: "What is the challenge of implementing VR/Metaverse in banking?",
                 options: [
-                    "提升客户信任度",
-                    "高昂的基础设施成本",
-                    "减少对VR硬件的需求",
-                    "简化的监管规则"
+                    "Improved customer trust",
+                    "High infrastructure costs for development",
+                    "Reduced need for VR hardware",
+                    "Simplified regulatory rules"
                 ],
                 answer: 1
             },
             {
-                question: "哪种技术保障VR银行的数字交易安全？",
+                question: "Which technology in VR banking ensures secure digital transactions and assets?",
                 options: [
-                    "5G网络",
-                    "触觉反馈",
-                    "区块链",
-                    "AR眼镜"
+                    " 5G",
+                    "Haptic feedback",
+                    "Blockchain",
+                    "AR glasses "
                 ],
                 answer: 2
             }
@@ -348,7 +348,7 @@
             `).join('');
 
             document.getElementById('questionBox').innerHTML = `
-                <div class="question-text">问题 ${currentQuestion + 1}: ${question.question}</div>
+                <div class="question-text">Question ${currentQuestion + 1}: ${question.question}</div>
                 <div class="options-grid">${optionsHTML}</div>
             `;
         }
@@ -383,9 +383,9 @@
         function showResult() {
             document.getElementById('questionBox').innerHTML = '';
             document.getElementById('scoreBoard').innerHTML = `
-                <h3>测验完成！</h3>
-                <p>您的得分：${score}/${quizData.length}</p>
-                <button class="lets-try-btn" onclick="startQuiz()">重新挑战</button>
+                <h3>Complete！</h3>
+                <p>Your Score：${score}/${quizData.length}</p>
+                <button class="lets-try-btn" onclick="startQuiz()">Restart</button>
             `;
         }
     </script>
