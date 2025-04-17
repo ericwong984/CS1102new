@@ -124,7 +124,7 @@
 </body>
 </html>
 
-<!DOCTYPE html>
+
 <html lang="zh-Hans">
 <head>
     <meta charset="UTF-8">
@@ -302,13 +302,18 @@
     <script>
         // 修改游戏按钮点击事件
         function openGame() {
-            document.getElementById('gameContainer').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
+    if(!isGameOpen) {
+        document.getElementById('gameContainer').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        isGameOpen = true;
+    }
+}
 
         function closeGame() {
-            document.getElementById('gameContainer').style.display = 'none';
-        }
+    document.getElementById('gameContainer').style.display = 'none';
+    document.body.style.overflow = 'auto';
+    isGameOpen = false;
+}
         
  <main>
         <div class="container">
