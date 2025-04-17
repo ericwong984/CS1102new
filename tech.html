@@ -159,7 +159,7 @@
             position: relative;
             height: 100vh;
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.3)),
-                        url('landingp1.jpg') center/cover fixed;
+                        url('tech.jpg') center/cover fixed;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -205,212 +205,298 @@
 </html>
 
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hans">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>游戏产品轮播</title>
-    <!-- 引入Swiper滑动库 -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <title>VR解决方案展示</title>
     <style>
-        /* 自定义样式 */
         :root {
-            --playstation-blue: #003087;
-            --accent-gold: #ffb900;
+            --vr-primary: #0f172a;
+            --vr-accent: #38bdf8;
+            --vr-surface: #1e293b;
         }
 
-        .game-carousel {
-            padding: 2rem 0;
-            background: #000;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: var(--vr-primary);
+            color: white;
+        }
+
+        .vr-carousel {
+            position: relative;
+            max-width: 1440px;
+            margin: 2rem auto;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .vr-card {
+            min-width: 100%;
+            padding: 2rem;
             position: relative;
         }
 
-        .swiper {
-            width: 100%;
-            padding: 30px 0;
-        }
-
-        .game-card {
-            background: #1a1a1a;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s;
-            cursor: grab;
-        }
-
-        .game-card:active {
-            cursor: grabbing;
+        .card-content {
+            background: var(--vr-surface);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.3);
         }
 
         .card-header {
             position: relative;
-            height: 400px;
+            border-radius: 1rem;
             overflow: hidden;
+            height: 400px;
+            background: linear-gradient(45deg, #0f172a, #1e293b);
         }
 
-        .game-image {
+        .card-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s;
+            opacity: 0.9;
         }
 
         .card-badge {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            background: var(--accent-gold);
-            color: #000;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 0.9rem;
+            top: 1rem;
+            left: 1rem;
+            background: var(--vr-accent);
+            color: var(--vr-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-weight: 600;
         }
 
-        .card-content {
+        .card-body {
             padding: 2rem;
         }
 
-        .game-title {
-            color: white;
-            font-size: 1.8rem;
+        .card-title {
+            font-size: 2rem;
             margin-bottom: 1rem;
+            background: linear-gradient(45deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
-        .game-description {
-            color: #888;
-            line-height: 1.6;
+        .card-desc {
+            color: #94a3b8;
+            line-height: 1.75;
             margin-bottom: 1.5rem;
         }
 
-        .pat-tag {
-            display: inline-block;
-            background: var(--playstation-blue);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-right: 8px;
+        .nav-dots {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
         }
 
-        /* 自定义导航按钮 */
-        .swiper-button-custom {
-            width: 50px;
-            height: 50px;
-            background: rgba(255,255,255,0.1);
+        .nav-dot {
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            backdrop-filter: blur(5px);
+            background: #334155;
+            cursor: pointer;
             transition: all 0.3s;
         }
 
-        .swiper-button-custom:hover {
-            background: var(--accent-gold);
+        .nav-dot.active {
+            background: var(--vr-accent);
+            transform: scale(1.2);
         }
 
-        @media (max-width: 768px) {
-            .card-header {
-                height: 300px;
+        @media (min-width: 768px) {
+            .vr-card {
+                min-width: 50%;
             }
-            
-            .game-title {
-                font-size: 1.4rem;
+        }
+
+        @media (min-width: 1024px) {
+            .vr-card {
+                min-width: 33.333%;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 游戏轮播容器 -->
-    <section class="game-carousel">
-        <div class="swiper">
-            <div class="swiper-wrapper">
-                <!-- 漫威蜘蛛侠 -->
-                <div class="swiper-slide">
-                    <article class="game-card">
-                        <div class="card-header">
-                            <span class="card-badge">PS5独占</span>
-                            <img src="images/spider-man.jpg" alt="蜘蛛侠" class="game-image">
-                        </div>
-                        <div class="card-content">
-                            <h2 class="game-title">Marvel's Spider-Man: Miles Morales</h2>
-                            <div class="pat-tag">PAT</div>
-                            <div class="pat-tag">开放世界</div>
-                            <p class="game-description">
-                                体验迈尔斯·莫拉雷斯的崛起之路，在纽约市的开放世界中穿梭，
-                                运用全新能力书写属于你的英雄传奇。
-                            </p>
-                        </div>
-                    </article>
+    <div class="vr-carousel">
+        <div class="carousel-track">
+            <!-- VR教育解决方案 -->
+            <article class="vr-card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <span class="card-badge">教育领域</span>
+                        <img src="images/vr-education.jpg" alt="VR教育" class="card-image">
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title">沉浸式教育平台</h2>
+                        <p class="card-desc">
+                            通过虚拟现实技术实现三维立体教学，支持生物解剖、历史场景还原、
+                            物理实验模拟等多种教学场景，知识吸收效率提升60%
+                        </p>
+                    </div>
                 </div>
+            </article>
 
-                <!-- 最后生还者2 -->
-                <div class="swiper-slide">
-                    <article class="game-card">
-                        <div class="card-header">
-                            <span class="card-badge">年度游戏</span>
-                            <img src="images/tlou2.jpg" alt="最后生还者2" class="game-image">
-                        </div>
-                        <div class="card-content">
-                            <h2 class="game-title">The Last of Us Part II</h2>
-                            <div class="pat-tag">PAT</div>
-                            <div class="pat-tag">剧情驱动</div>
-                            <p class="game-description">
-                                在文明崩坏的世界中体验艾莉的复仇之旅，
-                                感受令人窒息的叙事与沉浸式游戏体验。
-                            </p>
-                        </div>
-                    </article>
+            <!-- VR医疗解决方案 -->
+            <article class="vr-card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <span class="card-badge">医疗应用</span>
+                        <img src="images/vr-medical.jpg" alt="VR医疗" class="card-image">
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title">外科手术模拟系统</h2>
+                        <p class="card-desc">
+                            高精度医疗VR训练平台，提供实时触觉反馈和生理数据监测，
+                            支持超过200种手术流程模拟，培训周期缩短45%
+                        </p>
+                    </div>
                 </div>
+            </article>
 
-                <!-- 神秘海域4 -->
-                <div class="swiper-slide">
-                    <article class="game-card">
-                        <div class="card-header">
-                            <span class="card-badge">经典重制</span>
-                            <img src="images/uncharted4.jpg" alt="神秘海域4" class="game-image">
-                        </div>
-                        <div class="card-content">
-                            <h2 class="game-title">UNCHARTED 4: A Thief's End</h2>
-                            <div class="pat-tag">PAT</div>
-                            <div class="pat-tag">动作冒险</div>
-                            <p class="game-description">
-                                跟随内森·德雷克展开最终冒险，穿越丛林岛屿，
-                                揭开历史谜团，体验电影级叙事。
-                            </p>
-                        </div>
-                    </article>
+            <!-- VR工业解决方案 -->
+            <article class="vr-card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <span class="card-badge">工业应用</span>
+                        <img src="images/vr-industry.jpg" alt="VR工业" class="card-image">
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title">智能工厂模拟</h2>
+                        <p class="card-desc">
+                            全流程工业VR解决方案，支持生产线设计验证、设备维护培训、
+                            安全演练等功能，降低实际生产成本30%以上
+                        </p>
+                    </div>
                 </div>
-            </div>
-
-            <!-- 导航按钮 -->
-            <div class="swiper-button-prev swiper-button-custom"></div>
-            <div class="swiper-button-next swiper-button-custom"></div>
+            </article>
         </div>
-    </section>
 
-    <!-- 引入Swiper JS -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+        <div class="nav-dots">
+            <div class="nav-dot active"></div>
+            <div class="nav-dot"></div>
+            <div class="nav-dot"></div>
+        </div>
+    </div>
+
     <script>
-        const swiper = new Swiper('.swiper', {
-            // 配置参数
-            slidesPerView: 'auto',
-            centeredSlides: true,
-            spaceBetween: 30,
-            loop: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                768: {
-                    slidesPerView: 2,
-                    centeredSlides: false
-                },
-                1024: {
-                    slidesPerView: 3,
-                    centeredSlides: false
+        class VRCarousel {
+            constructor(container) {
+                this.container = container;
+                this.track = container.querySelector('.carousel-track');
+                this.dots = Array.from(container.querySelectorAll('.nav-dot'));
+                this.cards = Array.from(container.querySelectorAll('.vr-card'));
+                this.currentIndex = 0;
+                this.isDragging = false;
+                this.startPos = 0;
+                this.currentTranslate = 0;
+                this.prevTranslate = 0;
+                this.animationID = null;
+
+                // 事件绑定
+                this.track.addEventListener('mousedown', this.startDrag);
+                this.track.addEventListener('touchstart', this.startDrag);
+                this.track.addEventListener('mouseup', this.endDrag);
+                this.track.addEventListener('touchend', this.endDrag);
+                this.track.addEventListener('mousemove', this.drag);
+                this.track.addEventListener('touchmove', this.drag);
+                this.dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => this.goToIndex(index));
+                });
+
+                // 自动轮播
+                setInterval(() => this.nextSlide(), 5000);
+            }
+
+            startDrag = (e) => {
+                e.preventDefault();
+                this.isDragging = true;
+                this.startPos = this.getPosition(e);
+                this.animationID = requestAnimationFrame(this.animation);
+            }
+
+            drag = (e) => {
+                if (!this.isDragging) return;
+                const currentPosition = this.getPosition(e);
+                this.currentTranslate = this.prevTranslate + currentPosition - this.startPos;
+            }
+
+            endDrag = () => {
+                this.isDragging = false;
+                cancelAnimationFrame(this.animationID);
+                
+                const movedBy = this.currentTranslate - this.prevTranslate;
+                if (movedBy < -100 && this.currentIndex < this.cards.length - 1) this.nextSlide();
+                if (movedBy > 100 && this.currentIndex > 0) this.prevSlide();
+                
+                this.setPositionByIndex();
+            }
+
+            animation = () => {
+                this.setSliderPosition();
+                if (this.isDragging) requestAnimationFrame(this.animation);
+            }
+
+            getPosition(e) {
+                return e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            }
+
+            setSliderPosition() {
+                this.track.style.transform = `translateX(${this.currentTranslate}px)`;
+            }
+
+            setPositionByIndex() {
+                this.currentTranslate = -this.currentIndex * this.track.offsetWidth;
+                this.prevTranslate = this.currentTranslate;
+                this.setSliderPosition();
+                this.updateDots();
+            }
+
+            updateDots() {
+                this.dots.forEach(dot => dot.classList.remove('active'));
+                this.dots[this.currentIndex].classList.add('active');
+            }
+
+            nextSlide() {
+                if (this.currentIndex < this.cards.length - 1) {
+                    this.currentIndex++;
+                    this.setPositionByIndex();
                 }
             }
-        });
+
+            prevSlide() {
+                if (this.currentIndex > 0) {
+                    this.currentIndex--;
+                    this.setPositionByIndex();
+                }
+            }
+
+            goToIndex(index) {
+                this.currentIndex = index;
+                this.setPositionByIndex();
+            }
+        }
+
+        // 初始化
+        const carousel = new VRCarousel(document.querySelector('.vr-carousel'));
     </script>
 </body>
 </html>
