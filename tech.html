@@ -203,3 +203,214 @@
         </section>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游戏产品轮播</title>
+    <!-- 引入Swiper滑动库 -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        /* 自定义样式 */
+        :root {
+            --playstation-blue: #003087;
+            --accent-gold: #ffb900;
+        }
+
+        .game-carousel {
+            padding: 2rem 0;
+            background: #000;
+            position: relative;
+        }
+
+        .swiper {
+            width: 100%;
+            padding: 30px 0;
+        }
+
+        .game-card {
+            background: #1a1a1a;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            cursor: grab;
+        }
+
+        .game-card:active {
+            cursor: grabbing;
+        }
+
+        .card-header {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .game-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--accent-gold);
+            color: #000;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .game-title {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .game-description {
+            color: #888;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .pat-tag {
+            display: inline-block;
+            background: var(--playstation-blue);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+        }
+
+        /* 自定义导航按钮 */
+        .swiper-button-custom {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s;
+        }
+
+        .swiper-button-custom:hover {
+            background: var(--accent-gold);
+        }
+
+        @media (max-width: 768px) {
+            .card-header {
+                height: 300px;
+            }
+            
+            .game-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 游戏轮播容器 -->
+    <section class="game-carousel">
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <!-- 漫威蜘蛛侠 -->
+                <div class="swiper-slide">
+                    <article class="game-card">
+                        <div class="card-header">
+                            <span class="card-badge">PS5独占</span>
+                            <img src="images/spider-man.jpg" alt="蜘蛛侠" class="game-image">
+                        </div>
+                        <div class="card-content">
+                            <h2 class="game-title">Marvel's Spider-Man: Miles Morales</h2>
+                            <div class="pat-tag">PAT</div>
+                            <div class="pat-tag">开放世界</div>
+                            <p class="game-description">
+                                体验迈尔斯·莫拉雷斯的崛起之路，在纽约市的开放世界中穿梭，
+                                运用全新能力书写属于你的英雄传奇。
+                            </p>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 最后生还者2 -->
+                <div class="swiper-slide">
+                    <article class="game-card">
+                        <div class="card-header">
+                            <span class="card-badge">年度游戏</span>
+                            <img src="images/tlou2.jpg" alt="最后生还者2" class="game-image">
+                        </div>
+                        <div class="card-content">
+                            <h2 class="game-title">The Last of Us Part II</h2>
+                            <div class="pat-tag">PAT</div>
+                            <div class="pat-tag">剧情驱动</div>
+                            <p class="game-description">
+                                在文明崩坏的世界中体验艾莉的复仇之旅，
+                                感受令人窒息的叙事与沉浸式游戏体验。
+                            </p>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 神秘海域4 -->
+                <div class="swiper-slide">
+                    <article class="game-card">
+                        <div class="card-header">
+                            <span class="card-badge">经典重制</span>
+                            <img src="images/uncharted4.jpg" alt="神秘海域4" class="game-image">
+                        </div>
+                        <div class="card-content">
+                            <h2 class="game-title">UNCHARTED 4: A Thief's End</h2>
+                            <div class="pat-tag">PAT</div>
+                            <div class="pat-tag">动作冒险</div>
+                            <p class="game-description">
+                                跟随内森·德雷克展开最终冒险，穿越丛林岛屿，
+                                揭开历史谜团，体验电影级叙事。
+                            </p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- 导航按钮 -->
+            <div class="swiper-button-prev swiper-button-custom"></div>
+            <div class="swiper-button-next swiper-button-custom"></div>
+        </div>
+    </section>
+
+    <!-- 引入Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+            // 配置参数
+            slidesPerView: 'auto',
+            centeredSlides: true,
+            spaceBetween: 30,
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
+                    centeredSlides: false
+                },
+                1024: {
+                    slidesPerView: 3,
+                    centeredSlides: false
+                }
+            }
+        });
+    </script>
+</body>
+</html>
