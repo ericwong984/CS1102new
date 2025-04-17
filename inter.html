@@ -129,17 +129,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VR银行互动测验修复版</title>
+    <title>VR银行互动体验中心</title>
     <style>
-        /* 新增选项容器样式 */
-        .options-container {
+        :root {
+            --primary-blue: #1a237e;
+            --accent-cyan: #00b4ff;
+            --background: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--background);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 2rem;
+        }
+
+        .menu-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .lets-try-btn {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .lets-try-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .options-panel {
+            display: none;
+            margin-top: 1.5rem;
+        }
+
+        .quiz-container {
+            display: none;
+        }
+
+        .question-box {
+            margin: 2rem 0;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+            margin-bottom: 2rem;
+        }
+
+        .options-grid {
             display: grid;
             gap: 1rem;
             grid-template-columns: repeat(2, 1fr);
-            margin-top: 2rem;
         }
 
-        /* 修正选项按钮样式 */
         .option-btn {
             padding: 1.2rem;
             background: #f1f5f9;
@@ -147,51 +208,173 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 1rem;
             text-align: left;
+            position: relative;
+        }
+
+        .option-letter {
+            display: inline-block;
+            width: 25px;
+            font-weight: bold;
+            color: var(--primary-blue);
         }
 
         .option-btn:hover {
-            border-color: #3b82f6;
-            transform: translateY(-2px);
+            border-color: var(--accent-cyan);
         }
 
-        /* 新增字母标识样式 */
-        .option-letter {
-            display: inline-block;
-            width: 24px;
-            font-weight: bold;
-            color: #3b82f6;
+        .correct { background: #dcfce7 !important; border-color: #22c55e !important; }
+        .wrong { background: #fee2e2 !important; border-color: #ef4444 !important; }
+
+        .score-board {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .restart-btn {
+            background: var(--accent-cyan);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: block;
+            margin: 1rem auto;
+        }
+
+        @media (max-width: 768px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 保持原有容器结构不变 -->
+    <div class="container">
+        <div class="menu-container">
+            <button class="lets-try-btn" onclick="toggleMenu()">Let's Try! ▼</button>
+            <div class="options-panel" id="optionsPanel">
+                <button class="option-btn" onclick="startQuiz()">知识测验</button>
+                <button class="option-btn" onclick="window.open('https://example-vr-game.com', '_blank')">互动游戏</button>
+            </div>
+        </div>
+
+        <div class="quiz-container" id="quizContainer">
+            <div class="question-box" id="questionBox"></div>
+            <div class="score-board" id="scoreBoard"></div>
+            <button class="restart-btn" onclick="startQuiz()" style="display: none;">重新挑战</button>
+        </div>
+    </div>
 
     <script>
-        // 修改后的showQuestion函数
+        const quizData = [
+            {
+                question: "What role does AI play in VR banking?",
+                options: [
+                    "Creates immersive virtual environments",
+                    "Personalizes financial advice and detects fraud",
+                    "Connects VR headsets to 5G networks",
+                    "Simulates physical touch"
+                ],
+                answer: 1
+            },
+            {
+                question: "What is the main difference between VR and AR?",
+                options: [
+                    "VR overlays digital elements on the real world; AR creates a fully immersive digital environment",
+                    "VR creates a fully immersive digital environment; AR overlays digital elements on the real world",
+                    "Both create immersive digital environments",
+                    "Both enhance the real world with digital data"
+                ],
+                answer: 1
+            },
+            {
+                question: "What is the challenge of implementing VR/Metaverse in banking?",
+                options: [
+                    "Improved customer trust",
+                    "High infrastructure costs for development",
+                    "Reduced need for VR hardware",
+                    "Simplified regulatory rules"
+                ],
+                answer: 1
+            },
+            {
+                question: "Which technology ensures secure transactions in VR banking?",
+                options: [
+                    "5G",
+                    "Haptic feedback",
+                    "Blockchain",
+                    "AR glasses"
+                ],
+                answer: 2
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function toggleMenu() {
+            const panel = document.getElementById('optionsPanel');
+            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function startQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('optionsPanel').style.display = 'none';
+            showQuestion();
+        }
+
         function showQuestion() {
             const question = quizData[currentQuestion];
-            const optionsHTML = question.options
-                .map((option, index) => `
-                    <button class="option-btn" onclick="checkAnswer(${index})">
-                        <span class="option-letter">${String.fromCharCode(65 + index)}.</span>
-                        ${option}
-                    </button>
-                `)
-                .join('');
+            const optionsHTML = question.options.map((option, index) => `
+                <button class="option-btn" onclick="checkAnswer(${index})">
+                    <span class="option-letter">${String.fromCharCode(65 + index)}</span>
+                    ${option}
+                </button>
+            `).join('');
 
             document.getElementById('questionBox').innerHTML = `
                 <div class="question-text">Q${currentQuestion + 1}: ${question.question}</div>
-                <div class="options-container">${optionsHTML}</div>
+                <div class="options-grid">${optionsHTML}</div>
             `;
-            
-            // 重置计分板显示状态
             document.getElementById('scoreBoard').style.display = 'none';
             document.querySelector('.restart-btn').style.display = 'none';
         }
 
-        // 保持其他JavaScript代码不变
+        function checkAnswer(selectedIndex) {
+            const correctIndex = quizData[currentQuestion].answer;
+            const options = document.querySelectorAll('.option-btn');
+            
+            options.forEach((btn, index) => {
+                btn.disabled = true;
+                btn.classList.add(index === correctIndex ? 'correct' : (index === selectedIndex ? 'wrong' : ''));
+            });
+
+            if(selectedIndex === correctIndex) score++;
+
+            setTimeout(() => {
+                currentQuestion++;
+                if(currentQuestion < quizData.length) {
+                    showQuestion();
+                } else {
+                    showFinalScore();
+                }
+            }, 1500);
+        }
+
+        function showFinalScore() {
+            document.getElementById('questionBox').innerHTML = '';
+            document.getElementById('scoreBoard').innerHTML = `
+                测验完成！<br>
+                最终得分：${score}/${quizData.length}
+            `;
+            document.getElementById('scoreBoard').style.display = 'block';
+            document.querySelector('.restart-btn').style.display = 'block';
+        }
     </script>
 </body>
 </html>
