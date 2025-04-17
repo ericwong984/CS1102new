@@ -138,6 +138,35 @@
             background: #f8f9fa;
         }
 
+        .game-container {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 80px);
+            background: white;
+            z-index: 999;
+            display: none;
+        }
+
+        .game-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 10px 15px;
+            background: #1a237e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        
         .container {
             max-width: 800px;
             margin: 2rem auto;
@@ -257,14 +286,40 @@
     </style>
 </head>
 <body>
+    <div class="container">
+            <!-- 测验系统保持原有 -->
+            <div class="game-container" id="gameContainer">
+                <button class="close-btn" onclick="closeGame()">× 关闭</button>
+                <iframe 
+                    class="game-iframe" 
+                    src="https://unit9.github.io/vivid/" 
+                    allowfullscreen
+                    loading="lazy"
+                ></iframe>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 修改游戏按钮点击事件
+        function openGame() {
+            document.getElementById('gameContainer').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function closeGame() {
+            document.getElementById('gameContainer').style.display = 'none';
+        }
+        
  <main>
         <div class="container">
             <div class="quiz-header">
                 <button class="lets-try-btn" onclick="toggleMenu()">Let's Try ▼</button>
                 <div class="options-panel" id="optionsPanel">
                     <button class="quiz-option" onclick="startQuiz()">Quiz</button>
-                    <button class="quiz-option" onclick="window.open('https://konterball.com', '_blank')">Game</button>
-                </div>
+                    <button class="quiz-option" onclick="openGame()">Game</button>
+     </script>           
+     </div>
             </div>
 
             <div class="quiz-container" id="quizContainer">
