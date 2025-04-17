@@ -1,3 +1,5 @@
+现在是我的code：
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -303,16 +305,7 @@
             cursor: pointer;
             z-index: 1000;
         }
-
-        .quiz-container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-        
+        </style>
         /* 测验系统样式 */
         .quiz-header {
             text-align: center;
@@ -424,51 +417,44 @@
 </head>
 <body>
  <main>
-         <section id="quizSection" class="content-section active-section">
-            <div class="quiz-container">
-                <div class="quiz-header">
-                    <button class="lets-try-btn" onclick="toggleMenu()">Let's Try ▼</button>
-                    <div class="options-panel" id="optionsPanel">
-                        <button class="quiz-option" onclick="showContent('quiz')">Quiz</button>
-                        <button class="quiz-option" onclick="showContent('game')">Game</button>
-                    </div>
+        <div class="container">
+            <div class="quiz-header">
+                <button class="lets-try-btn" onclick="toggleMenu()">Let's Try ▼</button>
+                <div class="options-panel" id="optionsPanel">
+                    <button class="quiz-option" onclick="startQuiz()">Quiz</button>
+                    <button class="quiz-option" onclick="window.open('https://konterball.com', '_blank')">Game</button>
                 </div>
-                <div class="question-box" id="questionBox"></div>
-                <div class="score-board" id="scoreBoard"></div>
             </div>
-        </section>
 
-
-       <section id="gameSection" class="content-section">
-            <div class="game-container">
-                <button class="close-btn" onclick="showContent('quiz')">× 关闭</button>
-                <iframe class="game-iframe" src="https://konterball.com/" allowfullscreen loading="lazy"></iframe>
+        <div class="container">
+            <!-- 测验系统保持原有 -->
+            <div class="game-container" id="gameContainer">
+                <button class="close-btn" onclick="closeGame()">× 关闭</button>
+                <iframe 
+                    class="game-iframe" 
+                    src="https://konterball.com/" 
+                    allowfullscreen
+                    loading="lazy"
+                ></iframe>
             </div>
-        </section>
-    </main>
-    
+        </div>
 
           <script>
-        // 内容切换逻辑
-        function showContent(contentType) {
-            // 隐藏所有内容区块
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active-section');
-            });
-
-            // 显示选定内容
-            if(contentType === 'quiz') {
-                document.getElementById('quizSection').classList.add('active-section');
-            } else if(contentType === 'game') {
-                document.getElementById('gameSection').classList.add('active-section');
-            }
-
-            // 关闭选项面板
-            document.getElementById('optionsPanel').style.display = 'none';
+        // 修改游戏按钮点击事件
+        function openGame() {
+            document.getElementById('gameContainer').style.display = 'block';
+            window.scrollTo(0, 0);
         }
 
-         showContent('quiz');
-              
+        function closeGame() {
+            document.getElementById('gameContainer').style.display = 'none';
+        }
+
+        // 修改optionsPanel中的游戏按钮
+        const optionsPanel = `
+            <button class="quiz-option" onclick="startQuiz()">知识测验</button>
+            <button class="quiz-option" onclick="openGame()">体验游戏</button>
+        `;
     </script>
             
             <div class="quiz-container" id="quizContainer">
@@ -538,7 +524,6 @@
             score = 0;
             document.getElementById('quizContainer').style.display = 'block';
             document.getElementById('optionsPanel').style.display = 'none';
-            showContent('quiz');
             showQuestion();
         }
 
