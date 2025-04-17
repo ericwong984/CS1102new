@@ -129,110 +129,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VR银行互动体验</title>
+    <title>VR银行互动体验中心</title>
     <style>
         :root {
-            --primary-blue: #1a237e;
-            --accent-cyan: #00b4ff;
+            --primary-color: #1a237e;
+            --accent-color: #00b4ff;
             --background: #f8f9fa;
         }
 
         body {
             font-family: 'Segoe UI', sans-serif;
             background: var(--background);
-            margin: 2rem;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 2rem;
         }
 
         .menu-container {
-            max-width: 800px;
-            margin: 0 auto;
             text-align: center;
+            margin-bottom: 2rem;
         }
 
-        .lets-try-menu {
+        .lets-try-btn {
             padding: 1rem 2rem;
             font-size: 1.2rem;
-            border: 2px solid var(--primary-blue);
+            background: var(--primary-color);
+            color: white;
+            border: none;
             border-radius: 8px;
-            background: white;
             cursor: pointer;
-            margin-bottom: 2rem;
+            transition: transform 0.2s;
         }
 
-        .quiz-container {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        .lets-try-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .options-panel {
             display: none;
-        }
-
-        .question-box {
-            margin-bottom: 2rem;
-        }
-
-        .question-text {
-            font-size: 1.3rem;
-            color: var(--primary-blue);
-            margin-bottom: 1.5rem;
-        }
-
-        .options-grid {
-            display: grid;
-            gap: 1rem;
-            grid-template-columns: repeat(2, 1fr);
+            margin-top: 1.5rem;
         }
 
         .option-btn {
+            display: block;
+            width: 100%;
             padding: 1rem;
+            margin: 0.5rem 0;
+            background: var(--background);
             border: 2px solid #e2e8f0;
             border-radius: 8px;
-            background: none;
             cursor: pointer;
             transition: all 0.2s;
         }
 
         .option-btn:hover {
-            border-color: var(--accent-cyan);
-            transform: translateY(-2px);
+            border-color: var(--accent-color);
+        }
+
+        .quiz-container {
+            display: none;
+        }
+
+        .question-box {
+            margin: 2rem 0;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
         }
 
         .score-board {
             font-size: 1.5rem;
-            color: var(--primary-blue);
-            margin-top: 2rem;
-            display: none;
+            color: var(--primary-color);
+            text-align: center;
+            margin: 2rem 0;
         }
 
         .restart-btn {
-            background: var(--accent-cyan);
+            background: var(--accent-color);
             color: white;
-            border: none;
             padding: 1rem 2rem;
+            border: none;
             border-radius: 8px;
             cursor: pointer;
-            margin-top: 1rem;
+            display: block;
+            margin: 0 auto;
         }
 
-        @media (max-width: 768px) {
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        .correct { background: #d1fae5 !important; border-color: #10b981 !important; }
+        .wrong { background: #fee2e2 !important; border-color: #ef4444 !important; }
     </style>
 </head>
 <body>
-    <div class="menu-container">
-        <select class="lets-try-menu" onchange="handleMenuSelect(this)">
-            <option value="">Let's Try!</option>
-            <option value="quiz">知识测验</option>
-            <option value="game">互动游戏</option>
-        </select>
+    <div class="container">
+        <div class="menu-container">
+            <button class="lets-try-btn" onclick="toggleMenu()">Let's Try! ▼</button>
+            <div class="options-panel" id="optionsPanel">
+                <button class="option-btn" onclick="startQuiz()">知识测验</button>
+                <button class="option-btn" onclick="window.open('https://example-vr-game.com', '_blank')">互动游戏</button>
+            </div>
+        </div>
 
         <div class="quiz-container" id="quizContainer">
-            <div id="questionArea"></div>
+            <div class="question-box" id="questionBox"></div>
             <div class="score-board" id="scoreBoard"></div>
-            <button class="restart-btn" onclick="startQuiz()" style="display: none;">重新开始</button>
+            <button class="restart-btn" onclick="startQuiz()" style="display: none;">重新挑战</button>
         </div>
     </div>
 
@@ -283,44 +297,32 @@
         let currentQuestion = 0;
         let score = 0;
 
-        function handleMenuSelect(select) {
-            if(select.value === 'quiz') {
-                document.getElementById('quizContainer').style.display = 'block';
-                startQuiz();
-            } else if(select.value === 'game') {
-                window.open('https://example-vr-game.com', '_blank');
-                select.value = '';
-            }
+        function toggleMenu() {
+            const panel = document.getElementById('optionsPanel');
+            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
         }
 
         function startQuiz() {
             currentQuestion = 0;
             score = 0;
-            document.getElementById('scoreBoard').style.display = 'none';
-            document.querySelector('.restart-btn').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('optionsPanel').style.display = 'none';
             showQuestion();
         }
 
         function showQuestion() {
-            const questionArea = document.getElementById('questionArea');
             const question = quizData[currentQuestion];
-            
-            let optionsHTML = question.options.map((option, index) => `
+            const optionsHTML = question.options.map((option, index) => `
                 <button class="option-btn" onclick="checkAnswer(${index})">
                     ${String.fromCharCode(97 + index)}) ${option}
                 </button>
             `).join('');
 
-            questionArea.innerHTML = `
-                <div class="question-box">
-                    <div class="question-text">
-                        Q${currentQuestion + 1}: ${question.question}
-                    </div>
-                    <div class="options-grid">
-                        ${optionsHTML}
-                    </div>
-                </div>
+            document.getElementById('questionBox').innerHTML = `
+                <div class="question-text">Q${currentQuestion + 1}: ${question.question}</div>
+                <div class="options-panel">${optionsHTML}</div>
             `;
+            document.getElementById('scoreBoard').style.display = 'none';
         }
 
         function checkAnswer(selectedIndex) {
@@ -329,11 +331,7 @@
             
             options.forEach((btn, index) => {
                 btn.disabled = true;
-                if(index === correctIndex) {
-                    btn.style.borderColor = '#10b981';
-                } else if(index === selectedIndex) {
-                    btn.style.borderColor = '#ef4444';
-                }
+                btn.classList.add(index === correctIndex ? 'correct' : (index === selectedIndex ? 'wrong' : ''));
             });
 
             if(selectedIndex === correctIndex) score++;
@@ -349,13 +347,12 @@
         }
 
         function showFinalScore() {
-            document.getElementById('questionArea').innerHTML = '';
-            const scoreBoard = document.getElementById('scoreBoard');
-            scoreBoard.innerHTML = `
+            document.getElementById('questionBox').innerHTML = '';
+            document.getElementById('scoreBoard').innerHTML = `
                 测验完成！<br>
-                您的得分：${score}/${quizData.length}
+                正确率：${score}/${quizData.length}
             `;
-            scoreBoard.style.display = 'block';
+            document.getElementById('scoreBoard').style.display = 'block';
             document.querySelector('.restart-btn').style.display = 'block';
         }
     </script>
