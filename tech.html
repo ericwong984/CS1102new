@@ -209,12 +209,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VR Tech</title>
+    <title>VR银行核心技术</title>
     <style>
         :root {
-            --vr-primary: #0f172a;
-            --vr-accent: #38bdf8;
-            --vr-surface: #1e293b;
+            --primary-color: #0f172a;
+            --accent-blue: #38bdf8;
+            --tech-card-bg: #1e293b;
         }
 
         * {
@@ -225,40 +225,48 @@
         }
 
         body {
-            background: var(--vr-primary);
+            background: var(--primary-color);
             color: white;
-        }
-
-        .vr-carousel {
-            position: relative;
-            max-width: 1440px;
-            margin: 2rem auto;
-            overflow: hidden;
-        }
-
-        .carousel-track {
-            display: flex;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .vr-card {
-            min-width: 100%;
+            line-height: 1.6;
             padding: 2rem;
-            position: relative;
         }
 
-        .card-content {
-            background: var(--vr-surface);
-            border-radius: 1.5rem;
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 3rem 0;
+            background: linear-gradient(45deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tech-card {
+            background: var(--tech-card-bg);
+            border-radius: 1rem;
             padding: 2rem;
             box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
         }
 
         .card-header {
             position: relative;
-            border-radius: 1rem;
+            height: 200px;
+            border-radius: 0.5rem;
             overflow: hidden;
-            height: 400px;
+            margin-bottom: 1.5rem;
             background: linear-gradient(45deg, #0f172a, #1e293b);
         }
 
@@ -269,266 +277,145 @@
             opacity: 0.9;
         }
 
-        .card-badge {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: var(--vr-accent);
-            color: var(--vr-primary);
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
-            font-weight: 600;
-        }
-
-        .card-body {
-            padding: 2rem;
-        }
-
         .card-title {
-            font-size: 2rem;
+            font-size: 1.5rem;
             margin-bottom: 1rem;
-            background: linear-gradient(45deg, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: var(--accent-blue);
         }
 
         .card-desc {
             color: #94a3b8;
-            line-height: 1.75;
-            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
         }
 
-        .nav-dots {
+        .image-label {
             position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 1rem;
+            bottom: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.7);
+            padding: 0.3rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
         }
 
-        .nav-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #334155;
-            cursor: pointer;
-            transition: all 0.3s;
+        /* 硬件专区样式 */
+        .hardware-section {
+            margin-top: 4rem;
+            border-top: 2px solid #334155;
+            padding-top: 3rem;
         }
 
-        .nav-dot.active {
-            background: var(--vr-accent);
-            transform: scale(1.2);
-        }
-
-        @media (min-width: 768px) {
-            .vr-card {
-                min-width: 50%;
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
             }
-        }
-
-        @media (min-width: 1024px) {
-            .vr-card {
-                min-width: 33.333%;
+            
+            .tech-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="vr-carousel">
-        <div class="carousel-track">
-            <!-- VR教育解决方案 -->
-            <article class="vr-card">
-                <div class="card-content">
-                    <div class="card-header">
-                        <span class="card-badge">教育领域</span>
-                        <img src="images/vr-education.jpg" alt="VR教育" class="card-image">
-                    </div>
-                    <div class="card-body">
-                        <h2 class="card-title">沉浸式教育平台</h2>
-                        <p class="card-desc">
-                            通过虚拟现实技术实现三维立体教学，支持生物解剖、历史场景还原、
-                            物理实验模拟等多种教学场景，知识吸收效率提升60%
-                        </p>
-                    </div>
-                </div>
-            </article>
-
-            <!-- VR医疗解决方案 -->
-            <article class="vr-card">
-                <div class="card-content">
-                    <div class="card-header">
-                        <span class="card-badge">医疗应用</span>
-                        <img src="images/vr-medical.jpg" alt="VR医疗" class="card-image">
-                    </div>
-                    <div class="card-body">
-                        <h2 class="card-title">外科手术模拟系统</h2>
-                        <p class="card-desc">
-                            高精度医疗VR训练平台，提供实时触觉反馈和生理数据监测，
-                            支持超过200种手术流程模拟，培训周期缩短45%
-                        </p>
-                    </div>
-                </div>
-            </article>
-
-            <!-- VR工业解决方案 -->
-            <article class="vr-card">
-                <div class="card-content">
-                    <div class="card-header">
-                        <span class="card-badge">工业应用</span>
-                        <img src="images/vr-industry.jpg" alt="VR工业" class="card-image">
-                    </div>
-                    <div class="card-body">
-                        <h2 class="card-title">智能工厂模拟</h2>
-                        <p class="card-desc">
-                            全流程工业VR解决方案，支持生产线设计验证、设备维护培训、
-                            安全演练等功能，降低实际生产成本30%以上
-                        </p>
-                    </div>
-                </div>
-            </article>
-
-            <!-- VR工业解决方案 -->
-            <article class="vr-card">
-                <div class="card-content">
-                    <div class="card-header">
-                        <span class="card-badge">工业应用</span>
-                        <img src="images/vr-industry.jpg" alt="VR工业" class="card-image">
-                    </div>
-                    <div class="card-body">
-                        <h2 class="card-title">智能工厂模拟</h2>
-                        <p class="card-desc">
-                            全流程工业VR解决方案，支持生产线设计验证、设备维护培训、
-                            安全演练等功能，降低实际生产成本30%以上
-                        </p>
-                    </div>
-                </div>
-            </article>
-
-            <!-- VR工业解决方案 -->
-            <article class="vr-card">
-                <div class="card-content">
-                    <div class="card-header">
-                        <span class="card-badge">工业应用</span>
-                        <img src="images/vr-industry.jpg" alt="VR工业" class="card-image">
-                    </div>
-                    <div class="card-body">
-                        <h2 class="card-title">智能工厂模拟</h2>
-                        <p class="card-desc">
-                            全流程工业VR解决方案，支持生产线设计验证、设备维护培训、
-                            安全演练等功能，降低实际生产成本30%以上
-                        </p>
-                    </div>
-                </div>
-            </article>
-            
+    <!-- 核心技术展示 -->
+    <h2 class="section-title">核心技术创新</h2>
+    <div class="tech-grid">
+        <!-- 区块链 -->
+        <div class="tech-card">
+            <div class="card-header">
+                <div class="image-label">Image 7</div>
+                <img src="images/blockchain.jpg" alt="区块链技术" class="card-image">
+            </div>
+            <h3 class="card-title">区块链技术</h3>
+            <p class="card-desc">
+                保障数字交易与资产安全，通过分布式账本技术建立可信虚拟环境，
+                确保每笔交易可追溯、不可篡改
+            </p>
         </div>
 
-        <div class="nav-dots">
-            <div class="nav-dot active"></div>
-            <div class="nav-dot"></div>
-            <div class="nav-dot"></div>
+        <!-- 人工智能 -->
+        <div class="tech-card">
+            <div class="card-header">
+                <div class="image-label">Image 12</div>
+                <img src="images/ai.jpg" alt="人工智能" class="card-image">
+            </div>
+            <h3 class="card-title">人工智能引擎</h3>
+            <p class="card-desc">
+                个性化财务建议系统，实时欺诈检测算法，
+                智能虚拟助手提供7×24小时服务支持
+            </p>
+        </div>
+
+        <!-- 5G通信 -->
+        <div class="tech-card">
+            <div class="card-header">
+                <div class="image-label">Image 19</div>
+                <img src="images/5g.jpg" alt="5G通信" class="card-image">
+            </div>
+            <h3 class="card-title">5G超高速连接</h3>
+            <p class="card-desc">
+                提供毫秒级延迟的沉浸式体验，支持8K分辨率实时渲染，
+                确保虚拟环境流畅交互
+            </p>
+        </div>
+
+        <!-- 触觉反馈 -->
+        <div class="tech-card">
+            <div class="card-header">
+                <div class="image-label">Image 5</div>
+                <img src="images/haptic.jpg" alt="触觉反馈" class="card-image">
+            </div>
+            <h3 class="card-title">触觉反馈系统</h3>
+            <p class="card-desc">
+                模拟真实触感体验，支持虚拟文件签署、
+                货币质感识别等金融场景交互
+            </p>
         </div>
     </div>
 
-    <script>
-        class VRCarousel {
-            constructor(container) {
-                this.container = container;
-                this.track = container.querySelector('.carousel-track');
-                this.dots = Array.from(container.querySelectorAll('.nav-dot'));
-                this.cards = Array.from(container.querySelectorAll('.vr-card'));
-                this.currentIndex = 0;
-                this.isDragging = false;
-                this.startPos = 0;
-                this.currentTranslate = 0;
-                this.prevTranslate = 0;
-                this.animationID = null;
+    <!-- 硬件设备展示 -->
+    <div class="hardware-section">
+        <h2 class="section-title">硬件支持体系</h2>
+        <div class="tech-grid">
+            <!-- Oculus Rift -->
+            <div class="tech-card">
+                <div class="card-header">
+                    <div class="image-label">Image 9</div>
+                    <img src="images/oculus.jpg" alt="Oculus Rift" class="card-image">
+                </div>
+                <h3 class="card-title">Oculus Rift</h3>
+                <p class="card-desc">
+                    沉浸式银行模拟系统基础设备，提供1080P分辨率显示，
+                    支持基础金融场景模拟
+                </p>
+            </div>
 
-                // 事件绑定
-                this.track.addEventListener('mousedown', this.startDrag);
-                this.track.addEventListener('touchstart', this.startDrag);
-                this.track.addEventListener('mouseup', this.endDrag);
-                this.track.addEventListener('touchend', this.endDrag);
-                this.track.addEventListener('mousemove', this.drag);
-                this.track.addEventListener('touchmove', this.drag);
-                this.dots.forEach((dot, index) => {
-                    dot.addEventListener('click', () => this.goToIndex(index));
-                });
+            <!-- Meta Quest Pro -->
+            <div class="tech-card">
+                <div class="card-header">
+                    <div class="image-label">Image 22</div>
+                    <img src="images/meta-quest.jpg" alt="Meta Quest Pro" class="card-image">
+                </div>
+                <h3 class="card-title">Meta Quest Pro</h3>
+                <p class="card-desc">
+                    高端虚拟分行解决方案，4K显示精度配合眼球追踪，
+                    支持复杂金融业务办理
+                </p>
+            </div>
 
-
-            startDrag = (e) => {
-                e.preventDefault();
-                this.isDragging = true;
-                this.startPos = this.getPosition(e);
-                this.animationID = requestAnimationFrame(this.animation);
-            }
-
-            drag = (e) => {
-                if (!this.isDragging) return;
-                const currentPosition = this.getPosition(e);
-                this.currentTranslate = this.prevTranslate + currentPosition - this.startPos;
-            }
-
-            endDrag = () => {
-                this.isDragging = false;
-                cancelAnimationFrame(this.animationID);
-                
-                const movedBy = this.currentTranslate - this.prevTranslate;
-                if (movedBy < -100 && this.currentIndex < this.cards.length - 1) this.nextSlide();
-                if (movedBy > 100 && this.currentIndex > 0) this.prevSlide();
-                
-                this.setPositionByIndex();
-            }
-
-            animation = () => {
-                this.setSliderPosition();
-                if (this.isDragging) requestAnimationFrame(this.animation);
-            }
-
-            getPosition(e) {
-                return e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-            }
-
-            setSliderPosition() {
-                this.track.style.transform = `translateX(${this.currentTranslate}px)`;
-            }
-
-            setPositionByIndex() {
-                this.currentTranslate = -this.currentIndex * this.track.offsetWidth;
-                this.prevTranslate = this.currentTranslate;
-                this.setSliderPosition();
-                this.updateDots();
-            }
-
-            updateDots() {
-                this.dots.forEach(dot => dot.classList.remove('active'));
-                this.dots[this.currentIndex].classList.add('active');
-            }
-
-            nextSlide() {
-                if (this.currentIndex < this.cards.length - 1) {
-                    this.currentIndex++;
-                    this.setPositionByIndex();
-                }
-            }
-
-            prevSlide() {
-                if (this.currentIndex > 0) {
-                    this.currentIndex--;
-                    this.setPositionByIndex();
-                }
-            }
-
-            goToIndex(index) {
-                this.currentIndex = index;
-                this.setPositionByIndex();
-            }
-        }
-
-        // 初始化
-        const carousel = new VRCarousel(document.querySelector('.vr-carousel'));
-    </script>
+            <!-- AR眼镜 -->
+            <div class="tech-card">
+                <div class="card-header">
+                    <div class="image-label">Image 6</div>
+                    <img src="images/ar-glasses.jpg" alt="AR眼镜" class="card-image">
+                </div>
+                <h3 class="card-title">智能AR眼镜</h3>
+                <p class="card-desc">
+                    实时叠加金融数据于物理环境，支持移动端资产可视化、
+                    增强现实导航等场景
+                </p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
