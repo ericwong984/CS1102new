@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-EN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -209,7 +209,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VR解决方案展示</title>
+    <title>VR Tech</title>
     <style>
         :root {
             --vr-primary: #0f172a;
@@ -388,6 +388,41 @@
                     </div>
                 </div>
             </article>
+
+            <!-- VR工业解决方案 -->
+            <article class="vr-card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <span class="card-badge">工业应用</span>
+                        <img src="images/vr-industry.jpg" alt="VR工业" class="card-image">
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title">智能工厂模拟</h2>
+                        <p class="card-desc">
+                            全流程工业VR解决方案，支持生产线设计验证、设备维护培训、
+                            安全演练等功能，降低实际生产成本30%以上
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- VR工业解决方案 -->
+            <article class="vr-card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <span class="card-badge">工业应用</span>
+                        <img src="images/vr-industry.jpg" alt="VR工业" class="card-image">
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title">智能工厂模拟</h2>
+                        <p class="card-desc">
+                            全流程工业VR解决方案，支持生产线设计验证、设备维护培训、
+                            安全演练等功能，降低实际生产成本30%以上
+                        </p>
+                    </div>
+                </div>
+            </article>
+            
         </div>
 
         <div class="nav-dots">
@@ -422,9 +457,6 @@
                     dot.addEventListener('click', () => this.goToIndex(index));
                 });
 
-                // 自动轮播
-                setInterval(() => this.nextSlide(), 5000);
-            }
 
             startDrag = (e) => {
                 e.preventDefault();
